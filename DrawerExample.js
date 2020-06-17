@@ -79,7 +79,7 @@ export default class DrawerExample extends React.Component {
       this.drawer1 && this.drawer1.closeDrawer();
       this.drawer2 && this.drawer2.openDrawer();
       }}>
-      Open drawer..
+      Open drawer....
       </Button>
 
 
