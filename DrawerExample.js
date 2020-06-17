@@ -47,7 +47,7 @@ export default class DrawerExample extends React.Component {
                   onPress={() => this.drawer.closeDrawer()}
                 >
                   close drawer
-                </Button>
+      </Button>
               </View>
             </List.Item>
           );
@@ -69,7 +69,7 @@ export default class DrawerExample extends React.Component {
       </ScrollView>
     );
 
-      const itemArrRMB = Array.apply(null, Array(20))
+    const itemArrRMB = Array.apply(null, Array(20))
       .map(function (_, i) {
         return i;
       })
@@ -95,7 +95,7 @@ export default class DrawerExample extends React.Component {
                   onPress={() => this.drawer.closeDrawer()}
                 >
                   close drawer
-                </Button>
+      </Button>
               </View>
             </List.Item>
           );
@@ -128,17 +128,17 @@ export default class DrawerExample extends React.Component {
             this.drawer && this.drawer.openDrawer();
           }}>
             Open drawer
-          </Button>
+</Button>
 
           <Button onPress={() => {
             this.setState({ placement: 'right' });
             this.drawer && this.drawer.openDrawer();
           }}>
             Open drawer
-          </Button>
+</Button>
 
           <Drawer
-            sidebar={placement==='left'?sidebarLNB:sidebarRNB}
+            sidebar={placement === 'left' ? sidebarLNB : sidebarRNB}
             position={placement}
             open={false}
             drawerRef={el => (this.drawer = el)}
