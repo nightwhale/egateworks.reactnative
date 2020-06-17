@@ -7,6 +7,9 @@ const styles = StyleSheet.create({
   },
 });
 export default class DrawerExample extends React.Component {
+
+  state = { placement: 'left' };
+
   constructor() {
     super(...arguments);
     this.onOpenChange = isOpen => {
@@ -15,8 +18,11 @@ export default class DrawerExample extends React.Component {
     };
   }
   render() {
-    const itemArr = Array.apply(null, Array(20))
-      .map(function(_, i) {
+
+    const { placement } = this.state;
+
+    const itemArrLMB = Array.apply(null, Array(20))
+      .map(function (_, i) {
         return i;
       })
       .map((_i, index) => {
@@ -55,10 +61,59 @@ export default class DrawerExample extends React.Component {
           </List.Item>
         );
       });
+
     // Todo: https://github.com/DefinitelyTyped/DefinitelyTyped
-    const sidebar = (
+    const sidebarLNB = (
       <ScrollView style={[styles.container]}>
-        <List>{itemArr}</List>
+        <List>{itemArrLMB}</List>
+      </ScrollView>
+    );
+
+      const itemArrRMB = Array.apply(null, Array(20))
+      .map(function (_, i) {
+        return i;
+      })
+      .map((_i, index) => {
+        if (index === 0) {
+          return (
+            <List.Item
+              key={index}
+              thumb="https://zos.alipayobjects.com/rmsportal/eOZidTabPoEbPeU.png"
+              multipleLine
+            >
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}
+              >
+                <Text>우측 - {index}</Text>
+                <Button
+                  type="primary"
+                  size="small"
+                  onPress={() => this.drawer.closeDrawer()}
+                >
+                  close drawer
+                </Button>
+              </View>
+            </List.Item>
+          );
+        }
+        return (
+          <List.Item
+            key={index}
+            thumb="https://zos.alipayobjects.com/rmsportal/eOZidTabPoEbPeU.png"
+          >
+            <Text>우측 - {index}</Text>
+          </List.Item>
+        );
+      });
+
+    // Todo: https://github.com/DefinitelyTyped/DefinitelyTyped
+    const sidebarRNB = (
+      <ScrollView style={[styles.container]}>
+        <List>{itemArrRMB}</List>
       </ScrollView>
     );
 
@@ -66,49 +121,35 @@ export default class DrawerExample extends React.Component {
 
     return (
       <>
-      <View style={{ flex: 1, marginTop: 30, padding: 8 }}>
+        <View style={{ flex: 1, marginTop: 30, padding: 8 }}>
 
-      <Button onPress={() => {
-      this.drawer1 && this.drawer1.openDrawer();
-      this.drawer2 && this.drawer2.closeDrawer();
-      }}>
-      Open drawer
-      </Button>
+          <Button onPress={() => {
+            this.setState({ placement: 'left' });
+            this.drawer && this.drawer.openDrawer();
+          }}>
+            Open drawer
+          </Button>
 
-      <Button onPress={() => {
-      this.drawer1 && this.drawer1.closeDrawer();
-      this.drawer2 && this.drawer2.openDrawer();
-      }}>
-      Open drawer....??????
-      </Button>
+          <Button onPress={() => {
+            this.setState({ placement: 'right' });
+            this.drawer && this.drawer.openDrawer();
+          }}>
+            Open drawer
+          </Button>
 
-
-
-      <Drawer
-        sidebar={sidebar}
-        position="left"
-        open={false}
-        drawerRef={el => (this.drawer1 = el)}
-        onOpenChange={this.onOpenChange}
-        drawerBackgroundColor="#ccc"
-      >
-      </Drawer>
-
-      <Drawer
-        sidebar={sidebar}
-        position="right"
-        open={false}
-        drawerRef={el => (this.drawer2 = el)}
-        onOpenChange={this.onOpenChange}
-        drawerBackgroundColor="#ccc"
-        >
-      </Drawer>
-          
-
+          <Drawer
+            sidebar={placement==='left'?sidebarLNB:sidebarRNB}
+            position={placement}
+            open={false}
+            drawerRef={el => (this.drawer = el)}
+            onOpenChange={this.onOpenChange}
+            drawerBackgroundColor="#ccc"
+          >
+          </Drawer>
 
           <WhiteSpace />
 
-        </View>  
+        </View>
       </>
     );
   }
