@@ -26,14 +26,17 @@ import {
 
 //import HelloWorldApp from './HelloWorldApp'
 
-import DrawerExample from './DrawerExample'
+//import DrawerExample from './DrawerExample'
+
+import Box from './src/Box'
 
 const App: () => React$Node = () => {
   return (
     <>
 
         {/*<HelloWorldApp />*/}
-        <DrawerExample />
+        {/*<DrawerExample />*/}
+        <Box />
 
     </>
   );
